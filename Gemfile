@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.4.1"
+ruby "3.4.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
@@ -62,3 +62,5 @@ group :test do
 end
 
 gem "simple_form", "~> 5.3"
+
+gem "devise", "~> 4.9"
