@@ -1,24 +1,65 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## App en local 
 
-Things you may want to cover:
+```bash
+rails new le_petit_coin --skip-solid --database=postgresql 
+cd le_petit_coin
+bundle add simple_form
+rails generate simple_form:install
+rails generate scaffold user pseudonym:string photo:string
+rails db:migrate
+rails s
+```
 
-* Ruby version
+Dans le fichier `config/routes.rb`, ajouter une route racine : 
 
-* System dependencies
+```ruby
+  root "users#index"
+```
 
-* Configuration
+## Github
 
-* Database creation
+Puis on envoie sur Github
+```bash
+git add .
+git commit -m "init"
+```
 
-* Database initialization
+Sur votre Github, créer un repo (ici, mmibordeaux/le_petit_coin)
+```bash
+git remote add origin git@github.com:mmibordeaux/le_petit_coin.git
+git push --set-upstream origin main
+```
 
-* How to run the test suite
+## Scalingo
 
-* Services (job queues, cache servers, search engines, etc.)
+Créer l'app (la nommer)
 
-* Deployment instructions
+Choisir de la lier à Github
 
-* ...
+
+Ajouter ça au Gemfile 
+
+```rb
+ruby "3.4.1"
+```
+
+Mettre à jour le bundle 
+```bash
+bundle update --ruby
+```
+
+Supprimer le dossier `.github`
+
+Sur Scalingo, provisionner une base PostgreSQL (dans les ressources, addon)
+
+Créer un fichier `Procfile`
+
+Mettre ça dedans 
+```
+web: bundle exec puma -C config/puma.rb
+postdeploy: rails db:migrate
+```
+
+Envoyer sur Github
