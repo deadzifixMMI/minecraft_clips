@@ -1,0 +1,30 @@
+<h1>Modifier le clip</h1>
+
+<%= form_with(model: @clip, local: true) do |form| %>
+  <% if @clip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clip.errors.count, "error") %> empêchent cet article d'être mis à jour :</h2>
+      <ul>
+        <% @clip.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, "Titre du clip" %>
+    <%= form.text_field :title, value: @clip.title %>
+  </div>
+
+  <div>
+    <%= form.label :video, "Sélectionner une nouvelle vidéo" %>
+    <%= form.file_field :video %> <!-- Le champ pour télécharger une nouvelle vidéo -->
+  </div>
+
+  <div>
+    <%= form.submit "Mettre à jour le clip" %>
+  </div>
+<% end %>
+
+<%= link_to 'Retour à la liste des clips', clips_path %>

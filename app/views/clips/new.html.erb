@@ -1,0 +1,30 @@
+<h1>Ajouter un nouveau clip</h1>
+
+<%= form_with(model: @clip, local: true) do |form| %>
+  <% if @clip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clip.errors.count, "error") %> empêchent cet article d'être enregistré :</h2>
+      <ul>
+        <% @clip.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :video %>
+    <%= form.file_field :video %> <!-- Remplacer text_field par file_field -->
+  </div>
+
+  <div>
+    <%= form.submit "Créer le clip" %>
+  </div>
+<% end %>
+
+<%= link_to 'Retour à la liste des clips', clips_path %>

@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <h2><%= @clip.title %></h2>
+
+  <% if @clip.video.attached? %>
+    <video controls>
+      <source src="<%= url_for(@clip.video) %>" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  <% else %>
+    <p>Aucune vidéo attachée</p>
+  <% end %>
+
+  <h3>Commentaires :</h3>
+  <% @clip.comments.each do |comment| %>
+    <p><%= comment.content %> - <%= comment.user.username %></p>
+  <% end %>
+
+  <%= form_with(model: [@clip, Comment.new], local: true) do |form| %>
+    <%= form.text_area :content, placeholder: "Laisse un commentaire..." %>
+    <%= form.submit "Commenter" %>
+  <% end %>
+
+  <%= link_to "Edit this clip", edit_clip_path(@clip) %> |
+  <%= link_to "Back to clips", clips_path %>
+
+  <% if @clip.user == current_user %>
+    <%= button_to "Destroy this clip", @clip, method: :delete, data: { confirm: "Are you sure?" } %>
+  <% end %>
+</div>
